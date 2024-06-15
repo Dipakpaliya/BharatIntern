@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Tracking App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .container {
+            /* border: 2px solid red; */
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background:rgb(188, 187, 187);
+        }
+
+        table,th,tr,td {
+            border: 2px solid black;
+            text-align: center;
+        }
+        .btn{
+            border:none;
+            cursor:pointer;
+            background:red;
+            color:white;
+            /* height: 12px;
+            width:12px; */
+            padding:6px 8px;
+            border-radius: 5px;
+            margin:5px 2px;
+        }
+        .addbtn{
+            border:none;
+            cursor:pointer;
+            background:rgb(108, 252, 95);
+            color:black;
+            height: 35px;
+    width: 123px;
+            padding:6px 8px;
+            border-radius: 5px;
+            margin:5px 2px;
+        }
+        select{
+            width:128px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h2 class="center">Money Tracker</h2>
+        <form action="/Moneytracker" method="post">
+            <div class="container">
+                <div>
+                    Category:
+                    <select name="category" id="" required>
+                        <option value="" selected disabled>----Select----</option>
+                        <option value="Income" >Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                </div>
+                <div>
+                    Amount:<input type="number" name="amount" id="" required>
+                </div>
+                <div>
+                    Desc:<input type="text" name="description" id="" required>
+                </div>
+                <div>
+                    Date:<input type="date" name="date" id="" required>
+                </div>
+                <div>
+                    <button type="submit" class="addbtn">Add</button>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section>
+        <h2 class="center">Expenses and income list</h2>
+        <table>
+           
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount(₹)</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Income</td>
+                    <td>25000</td>
+                    <td>Salary</td>
+                    <td>02-07-2024</td>
+                    <td><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Income</td>
+                    <td>25000</td>
+                    <td>Salary</td>
+                    <td>02-07-2024</td>
+                    <td><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Expense</td>
+                    <td>200</td>
+                    <td>Light bill</td>
+                    <td>25-07-2024</td>
+                    <td><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Expense</td>
+                    <td>200</td>
+                    <td>Light bill</td>
+                    <td>25-07-2024</td>
+                    <td><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Expense</td>
+                    <td>729</td>
+                    <td>Mobile recharge</td>
+                    <td>30-07-2024</td>
+                    <td><button class="btn">Delete</button></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" >Total: <span id="total"></span>₹</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+    <script>
+        let total=0;
+        let tbody=document.querySelector('tbody');   //targetting the body
+        let tableRowArray=tbody.querySelectorAll('tr');   //creating of tr's array
+        
+        tableRowArray.forEach(function (item) {     //for each rows loop will be applied
+            let tdArray=item.querySelectorAll('td');
+            let data=parseFloat(tdArray[1].innerText);
+            if(tdArray[0].innerText=='Income'){
+                total=total+data;
+            }
+            else{
+                total=total-data;
+            }
+        });
+        document.getElementById('total').innerHTML=total;
+
+       
+    </script>
+</body>
+
+</html>
