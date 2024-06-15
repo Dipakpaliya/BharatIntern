@@ -9,6 +9,8 @@ const port = 3000;
 
 app.use(express.urlencoded());
 
+
+//registration js content starts here
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages/registration.html',);
 });
@@ -54,6 +56,29 @@ app.post('/register', (req, res) => {
     }
 
 })
+
+//registration js content ends here
+
+
+//Money tracker js content starts here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//money tracker js content ends here
 
 app.listen(port, () => {
     console.log('Server started on http://localhost:3000');
