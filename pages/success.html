@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successfully Registered</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* navbar  */
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: black;
+            color: white;
+            height: 5vh;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul li {
+            list-style: none;
+            padding: 2px 12px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: auto;
+            background-color: green;
+            color: white;
+            margin-top: 12px;
+        }
+
+        .btn {
+            background-color: blue;
+            border: none;
+            color: white;
+            cursor: pointer;
+            height: 31px;
+            width: 94px;
+            border-radius: 10px;
+            margin: 5px 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h2> <i>DP</i></h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Thank you for registering</h2>
+        <p>Your data has been sent successfully ......</p>
+        <button class="btn" onclick="window.location.href='/';">Home page</button>
+    </div>
+
+</body>
+
+</html>
