@@ -101,7 +101,7 @@
                 </div>
                 <div>
                     <label for="amount">Amount:</label>
-                    <input type="number" name="amount" id="amount" onchange="check()" required>
+                    <input type="number" name="amount" id="amount" onkeyup="check()" onchange="checkvalue()" required>
                 </div>
                 <div>
                     <label for="description">Desc:</label>
@@ -147,18 +147,22 @@
     <script>
 
 
-        // function check(){
-        //     let amount=document.getElementById('amount').value;
-        //     if(amount<=0)
-        //     {
-        //         alert('amount will not be zero or negative');
-        //     }
-        //     else{
-        //         console.log('amount value:'+amount);
-
-        //     }
-
-        // }
+            function check(){
+                let amount=document.getElementById('amount').value;
+                if(amount<0)
+                {
+                    alert('amount will not be zero or negative');
+                }
+                amount='';
+            }
+            function checkvalue(){
+                let amount=document.getElementById('amount').value;
+                if(amount==0)
+                {
+                    alert('amount will not be  zero');
+                }
+                
+            }
 
         console.log('all ok');
 
