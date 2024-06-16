@@ -11,7 +11,12 @@
             padding: 0;
             outline: none;
         }
-
+        body{
+            background-color: antiquewhite;
+        }
+.common-mg{
+    margin:24px 0px;
+}
         .center {
             text-align: center;
         }
@@ -26,51 +31,65 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background:rgb(188, 187, 187);
+            background: rgb(223, 223, 223);
         }
 
-        table,th,tr,td {
+        thead {
+            background-color: rgb(141, 245, 141);
+        }
+
+        table,
+        th,
+        tr,
+        td {
             border: 2px solid black;
             text-align: center;
         }
-        .btn{
-            border:none;
-            cursor:pointer;
-            background:red;
-            color:white;
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            background: red;
+            color: white;
             /* height: 12px;
             width:12px; */
-            padding:6px 8px;
+            padding: 6px 8px;
             border-radius: 5px;
-            margin:5px 2px;
+            margin: 5px 2px;
         }
-        .addbtn{
-            border:none;
-            cursor:pointer;
-            background:rgb(108, 252, 95);
-            color:black;
+
+        .addbtn {
+            border: none;
+            cursor: pointer;
+            background: rgb(108, 252, 95);
+            color: black;
             height: 35px;
-    width: 123px;
-            padding:6px 8px;
+            width: 123px;
+            padding: 6px 8px;
             border-radius: 5px;
-            margin:5px 2px;
+            margin: 5px 2px;
+            border:2px solid black;
         }
-        select{
-            width:128px;
+        .addbtn:hover{
+            background-color: rgb(132, 132, 246);
+        }
+
+        select {
+            width: 128px;
         }
     </style>
 </head>
 
 <body>
     <section>
-        <h2 class="center">Money Tracker</h2>
-        <form action="/moneytrackersend" method="post">
+        <h2 class="center common-mg">Money Tracker</h2>
+        <form action="/moneytrackersend" method="post" >
             <div class="container">
                 <div>
                     Category:
                     <select name="category" id="" required>
                         <option value="" selected disabled>----Select----</option>
-                        <option value="Income" >Income</option>
+                        <option value="Income">Income</option>
                         <option value="Expense">Expense</option>
                     </select>
                 </div>
@@ -84,15 +103,16 @@
                     Date:<input type="date" name="date" id="" required>
                 </div>
                 <div>
-                    <button type="submit" class="addbtn">Add</button>
+                    <button type="submit" class="addbtn" >Add</button>
                 </div>
             </div>
         </form>
     </section>
+    <a href="/find">Send find req.</a>
     <section>
-        <h2 class="center">Expenses and income list</h2>
+        <h2 class="center common-mg">Expenses and income list</h2>
         <table>
-           
+
             <thead>
                 <tr>
                     <th>Category</th>
@@ -141,29 +161,30 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2" >Total: <span id="total"></span>₹</td>
+                    <td colspan="2"><b>Total: <span id="total"></span>₹ </b></td>
                 </tr>
             </tfoot>
         </table>
     </section>
     <script>
-        let total=0;
-        let tbody=document.querySelector('tbody');   //targetting the body
-        let tableRowArray=tbody.querySelectorAll('tr');   //creating of tr's array
-        
+        let total = 0;
+        let tbody = document.querySelector('tbody');   //targetting the body
+        let tableRowArray = tbody.querySelectorAll('tr');   //creating of tr's array
+
         tableRowArray.forEach(function (item) {     //for each rows loop will be applied
-            let tdArray=item.querySelectorAll('td');
-            let data=parseFloat(tdArray[1].innerText);
-            if(tdArray[0].innerText=='Income'){
-                total=total+data;
+            let tdArray = item.querySelectorAll('td');
+            let data = parseFloat(tdArray[1].innerText);
+            if (tdArray[0].innerText == 'Income') {
+                total = total + data;
             }
-            else{
-                total=total-data;
+            else {
+                total = total - data;
             }
         });
-        document.getElementById('total').innerHTML=total;
+        document.getElementById('total').innerHTML = total;
 
-       
+        
+
     </script>
 </body>
 

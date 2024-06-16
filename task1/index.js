@@ -60,50 +60,6 @@ app.post('/register', (req, res) => {
 //registration js content ends here
 
 
-//Money tracker js content starts here
-app.get('/MoneyTracker', (req, res) => {
-    res.sendFile(__dirname + '/pages/MoneyTracker.html');
-})
-
-
-const schema2 = mongoose.Schema;       //defining schema
-const moneyschema = new schema2({
-    category: String,
-    amount: Number,
-    description: String,
-    date: Date,
-});
-
-const money2 = mongoose.model('moneytracker', moneyschema);   //compiling schema to model
-
-app.post('/moneytrackersend', (req, res) => {
-    // res.send('post request invoked successfully');
-    // console.log(req.body);
-
-    data = req.body;
-
-    try {
-        const newemoney = new money2({
-            category: data.category,
-            amount: data.amount,
-            description: data.description,
-            date: data.date,
-        })
-
-        newemoney.save();         //storing into the mongoDB database
-        res.sendFile(__dirname+'/pages/MoneyTracker.html');   //redirecting to the success page
-    }
-    catch {
-        res.send('error');
-    }
-
-})
-
-
-
-//money tracker js content ends here
-
 app.listen(port, () => {
     console.log('Server started on for register http://localhost:3000/');
-    console.log('Server started on for moneytracker http://localhost:3000/MoneyTracker');
 });
