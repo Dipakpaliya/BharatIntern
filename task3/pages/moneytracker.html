@@ -5,18 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Money Tracking App</title>
+    <!-- <script src="/js/script.js"></script> -->
     <style>
         * {
             margin: 0;
             padding: 0;
             outline: none;
         }
-        body{
+
+        body {
             background-color: antiquewhite;
         }
-.common-mg{
-    margin:24px 0px;
-}
+
+        .common-mg {
+            margin: 24px 0px;
+        }
+
         .center {
             text-align: center;
         }
@@ -68,47 +72,52 @@
             padding: 6px 8px;
             border-radius: 5px;
             margin: 5px 2px;
-            border:2px solid black;
+            border: 2px solid black;
         }
-        .addbtn:hover{
+
+        .addbtn:hover {
             background-color: rgb(132, 132, 246);
         }
 
         select {
             width: 128px;
         }
+        
     </style>
 </head>
 
 <body>
     <section>
         <h2 class="center common-mg">Money Tracker</h2>
-        <form action="/moneytrackersend" method="post" >
+        <form action="/add" method="post">
             <div class="container">
                 <div>
-                    Category:
-                    <select name="category" id="" required>
+                    <label for="category">Category:</label>
+                    <select name="category" id="category" required>
                         <option value="" selected disabled>----Select----</option>
                         <option value="Income">Income</option>
                         <option value="Expense">Expense</option>
                     </select>
                 </div>
                 <div>
-                    Amount:<input type="number" name="amount" id="" required>
+                    <label for="amount">Amount:</label>
+                    <input type="number" name="amount" id="amount" onchange="check()" required>
                 </div>
                 <div>
-                    Desc:<input type="text" name="description" id="" required>
+                    <label for="description">Desc:</label>
+                    <input type="text" name="description" id="description" required>
                 </div>
                 <div>
-                    Date:<input type="date" name="date" id="" required>
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" id="date" required>
                 </div>
                 <div>
-                    <button type="submit" class="addbtn" >Add</button>
+                    <button type="submit" class="addbtn">Add</button>
                 </div>
             </div>
         </form>
     </section>
-    <a href="/find">Send find req.</a>
+    <!-- <a href="/find">Send find req.</a> -->
     <section>
         <h2 class="center common-mg">Expenses and income list</h2>
         <table>
@@ -122,42 +131,8 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Income</td>
-                    <td>25000</td>
-                    <td>Salary</td>
-                    <td>02-07-2024</td>
-                    <td><button class="btn">Delete</button></td>
-                </tr>
-                <tr>
-                    <td>Income</td>
-                    <td>25000</td>
-                    <td>Salary</td>
-                    <td>02-07-2024</td>
-                    <td><button class="btn">Delete</button></td>
-                </tr>
-                <tr>
-                    <td>Expense</td>
-                    <td>200</td>
-                    <td>Light bill</td>
-                    <td>25-07-2024</td>
-                    <td><button class="btn">Delete</button></td>
-                </tr>
-                <tr>
-                    <td>Expense</td>
-                    <td>200</td>
-                    <td>Light bill</td>
-                    <td>25-07-2024</td>
-                    <td><button class="btn">Delete</button></td>
-                </tr>
-                <tr>
-                    <td>Expense</td>
-                    <td>729</td>
-                    <td>Mobile recharge</td>
-                    <td>30-07-2024</td>
-                    <td><button class="btn">Delete</button></td>
-                </tr>
+            <tbody id="table_body_container">
+
             </tbody>
             <tfoot>
                 <tr>
@@ -165,27 +140,77 @@
                 </tr>
             </tfoot>
         </table>
+        <div id="data-container">
+
+        </div>
     </section>
     <script>
-        let total = 0;
-        let tbody = document.querySelector('tbody');   //targetting the body
-        let tableRowArray = tbody.querySelectorAll('tr');   //creating of tr's array
 
-        tableRowArray.forEach(function (item) {     //for each rows loop will be applied
-            let tdArray = item.querySelectorAll('td');
-            let data = parseFloat(tdArray[1].innerText);
-            if (tdArray[0].innerText == 'Income') {
-                total = total + data;
-            }
-            else {
-                total = total - data;
-            }
+
+        // function check(){
+        //     let amount=document.getElementById('amount').value;
+        //     if(amount<=0)
+        //     {
+        //         alert('amount will not be zero or negative');
+        //     }
+        //     else{
+        //         console.log('amount value:'+amount);
+
+        //     }
+
+        // }
+
+        console.log('all ok');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            fetch('/find')
+            
+                .then(response => response.json())
+                .then(data => {
+                    dataContainer = document.getElementById('table_body_container');
+                    data.forEach(entry => {
+                        const entryElement = document.createElement('tr');
+                        entryElement.innerHTML = `
+                    <td>${entry.category}</td>
+                    <td> ${entry.amount}</td>
+                    <td> ${entry.description}</td>
+                    <td>${new Date(entry.date).toLocaleDateString()}</td>
+                    <td>
+                        <form action="/delete" method="post">
+                            <input type="hidden" name="id" value="${entry._id}">
+                            <input type="submit" value="Delete" class="btn">
+                            </form>
+                        </td>
+                `;
+                        dataContainer.appendChild(entryElement);
+
+                        //code for total calculating
+                        let total = 0;
+                        let tbody = document.querySelector('tbody');   //targetting the body
+                        let tableRowArray = tbody.querySelectorAll('tr');   //creating of tr's array
+
+                        tableRowArray.forEach(function (item) {     //for each rows loop will be applied
+                            let tdArray = item.querySelectorAll('td');
+                            let data = parseFloat(tdArray[1].innerText);
+                            if (tdArray[0].innerText == 'Income') {
+                                total = total + data;
+                            }
+                            else {
+                                total = total - data;
+                            }
+                            console.log(total);
+                        });
+                        document.getElementById('total').innerHTML = total;
+
+                        //code for total calculating ends here
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
         });
-        document.getElementById('total').innerHTML = total;
-
-        
 
     </script>
+
 </body>
 
 </html>

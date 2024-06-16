@@ -1,4 +1,5 @@
 const express=require('express');
+const bodyParser = require('body-parser');
 
 const mongoose=require('mongoose');
 mongoose.connect('mongodb://localhost:27017/bharatintern');
@@ -8,7 +9,9 @@ const app=express();
 
 const port=3000;
 
-app.use(express.urlencoded());
+//body parse 2 lines required
+app.use(bodyParser.json());           
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //money tracker js content starts here
 
@@ -32,7 +35,7 @@ const moneyschema=new schema({
 
 const moneymodel=mongoose.model('moneytrackers',moneyschema);
 
-app.post('/moneytrackersend',(req,res)=>{
+app.post('/add',(req,res)=>{
     data=req.body;
     try{
         const newmoney=new moneymodel({
@@ -42,7 +45,7 @@ app.post('/moneytrackersend',(req,res)=>{
             date: data.date
            })
            newmoney.save();
-            res.sendFile(__dirname+'/pages/moneytracker.html');
+            res.redirect('/');
     }
     catch{
         res.sendFile(__dirname+'/pages/error.html');
@@ -51,14 +54,25 @@ app.post('/moneytrackersend',(req,res)=>{
 
 
 
-//find req. js content starts here 
-app.get('/find',(req,res)=>{
-   
+app.get('/find', async (req, res) => {
+    try {
+        const data = await moneymodel.find({});
+        res.json(data);
+    } catch (error) {
+        console.log(error);
+        res.send('Error retrieving data');
+    }
 });
 
 
 //find req. js content ends here
 
+
+app.post('/delete',(req,res)=>{
+    delete_id=req.body.id;
+    // console.log(received_id);
+    res.send('deletion id received:'+delete_id);
+});
 //money tracker js content ends here
 
 app.listen(port,()=>{
