@@ -68,10 +68,19 @@ app.get('/find', async (req, res) => {
 //find req. js content ends here
 
 
-app.post('/delete',(req,res)=>{
-    delete_id=req.body.id;
-    // console.log(received_id);
-    res.send('deletion id received:'+delete_id);
+app.post('/delete',async(req,res)=>{
+   
+    try{
+        delete_id=req.body.id;
+        // console.log(received_id);
+        const id = await moneymodel.deleteOne({_id:delete_id});
+        res.redirect('/');
+        // res.send('deleted  id received:'+delete_id);
+    }
+    catch{
+
+    }
+  
 });
 //money tracker js content ends here
 
