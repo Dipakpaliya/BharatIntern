@@ -48,6 +48,10 @@
             border: 2px solid black;
             text-align: center;
         }
+        tbody >tr:hover{
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
 
         .btn {
             border: none;
@@ -136,7 +140,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2"><b>Total: <span id="total"></span>₹ </b></td>
+                    <td colspan="2">
+                        <b>Total Income:<span id="income"></span>₹</b><br>
+                        <b>Total Expense:<span id="expense"></span>₹</b><br>
+                        <b>Total:<span id="total"></span>₹</b>
+                </td>
                 </tr>
             </tfoot>
         </table>
@@ -192,6 +200,8 @@
 
                         //code for total calculating
                         let total = 0;
+                        let total_income=0;
+                        let total_expense=0;
                         let tbody = document.querySelector('tbody');   //targetting the body
                         let tableRowArray = tbody.querySelectorAll('tr');   //creating of tr's array
 
@@ -200,13 +210,19 @@
                             let data = parseFloat(tdArray[2].innerText);
                             if (tdArray[1].innerText == 'Income') {
                                 total = total + data;
+                                total_income=total_income+data;
                             }
                             else {
                                 total = total - data;
+                                total_expense=total_expense+data;
+
                             }
                         });
                         document.getElementById('total').innerHTML = total;
-
+                        document.getElementById('income').innerHTML = total_income;
+                        document.getElementById('expense').innerHTML = total_expense;
+                        // console.log(total_income);
+                        // console.log(total_expense);
                         //code for total calculating ends here
                         srno++;
                         // console.log(srno);
