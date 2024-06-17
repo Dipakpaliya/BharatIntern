@@ -13,7 +13,8 @@
         }
 
         body {
-            background-color: antiquewhite;
+            background-color: #f1d7fa;
+            /* background:radial-gradient(red,green); */
         }
 
         .common-mg {
@@ -30,15 +31,21 @@
             justify-content: space-evenly;
             align-items: center;
         }
+        @media(max-width:800px){
+            .container{
+                flex-direction: column;
+            }
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
             background: rgb(223, 223, 223);
+            
         }
 
         thead {
-            background-color: rgb(141, 245, 141);
+            background-color: rgb(167, 181, 244);
         }
 
         table,
@@ -76,10 +83,11 @@
             border-radius: 5px;
             margin: 5px 2px;
             border: 2px solid black;
+            font-weight: bold;
         }
 
         .addbtn:hover {
-            background-color: rgb(132, 132, 246);
+            background-color: rgb(3, 255, 213);
         }
 
         select {
@@ -91,7 +99,7 @@
 
 <body>
     <section>
-        <h2 class="center common-mg">Money Tracker</h2>
+        <h2 class="center common-mg">Money Tracker Web Application</h2>
         <form action="/add" method="post">
             <div class="container">
                 <div>
@@ -122,10 +130,10 @@
     </section>
     <!-- <a href="/find">Send find req.</a> -->
     <section>
-        <h2 class="center common-mg">Expenses and income list</h2>
+        <h2 class="center common-mg">Income & Expenses Table</h2>
         <table>
 
-            <thead>
+            <thead class="center">
                 <tr>
                     <th>Sno.</th>
                     <th>Category</th>
@@ -140,10 +148,10 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2">
-                        <b>Total Income:<span id="income"></span>₹</b><br>
-                        <b>Total Expense:<span id="expense"></span>₹</b><br>
-                        <b>Total:<span id="total"></span>₹</b>
+                    <td colspan="6">
+                        <b>Total Income: <span id="income"></span>₹</b><br>
+                        <b>Total Expense: <span id="expense"></span>₹</b><br>
+                        <b>Total: <span id="total"></span>₹</b>
                 </td>
                 </tr>
             </tfoot>

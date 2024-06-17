@@ -13,7 +13,7 @@ const port=3000;
 app.use(bodyParser.json());           
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//money tracker js content starts here
+// money tracker js content starts here
 
 app.get('/',(req,res)=>{
     res.sendFile(__dirname+'/pages/moneytracker.html');
